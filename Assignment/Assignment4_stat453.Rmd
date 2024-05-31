@@ -1,0 +1,107 @@
+---
+title: "Assignment5_stat453"
+author: "Koki Itagaki"
+date: "2024-03-31"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(rsm)
+
+# Create a data frame with the provided data
+data <- data.frame(
+  x1 = c(-1, -1, -1, -1, 1, 1, 1, 1, -1.682, 1.682, 0, 0, 0, 0, 0, 0, 0, 0, 0,0),
+  x2 = c(-1, -1, 1, 1, -1, -1, 1, 1, 0, 0, -1.682, 1.682, 0, 0, 0, 0, 0, 0, 0, 0),
+  x3 = c(-1, 1, -1, 1, -1, 1, -1, 1, 0, 0, 0, 0, -1.682, 1.682, 0, 0, 0, 0, 0, 0),
+  y = c(66, 70, 78, 60, 80, 70, 100, 75, 100, 80, 68, 63, 65, 82, 113, 100, 118, 88, 100, 85)
+)
+
+# Load the rsm package
+library(rsm)
+
+
+
+# Fit the response surface model to the data
+model <- rsm(y ~ SO(x1, x2, x3)^2, data = data)
+
+# Print the model summary
+summary(model)
+
+# Plot the fitted surface
+contour(model, ~x1 + x2, interactive = TRUE)
+
+
+#To find the conditions for maximum growth,
+#I need to check he stationary point of the response surface. The stationary point is where the gradient of the response surface is zero, indicating a potential maximum or minimum. 
+
+#According to the model summary, the stationary point is at:
+#x1 =  0.2597353 x2 = 0.1108581 x3 = -0.1400280
+
+#Therefore, under the conditions where x1 is approximately 0.2597, x2 is approximately 0.1109, and x3 is approximately -0.1400, the maximum growth is achieved.
+
+```
+
+```{r}
+# Load the rsm package
+library(rsm)
+
+# Create a data frame with the provided data
+data <- data.frame(
+  x1 = c(-1, 1, -1, 1, -1, 1, -1, 1, 0, 0, 0, 0, 0, 0, 0),
+  x2 = c(-1, -1, 1, 1, 0, 0, 0, 0, -1, 1, -1, 1, 0, 0, 0),
+  x3 = c(0, 0, 0, 0, -1, -1, 1, 1, -1, -1, 1, 1, 0, 0, 0),
+  y = c(535, 580, 596, 563, 645, 458, 350, 600, 595, 648, 532, 656, 653, 599, 620)
+)
+
+# Fit the second-order model to the data
+model <- rsm(y ~ SO(x1, x2, x3)^2, data = data)
+
+
+# Print the model summary
+summary(model)
+
+
+#b
+
+#To determine the type of surface found we can analyze the coefficients.
+
+
+#If all linear coefficients (x1, x2, x3) are positive and all interaction coefficients are negative, it indicates a ridge.
+#If all linear coefficients are negative and all interaction coefficients are positive, it indicates a valley.
+#If the signs are mixed, it indicates a saddle point.
+
+#Igot x1: 9.375 x2: 27.625 x3: -26.000
+
+#The interaction coefficients are:
+#x1:x2: -19.500 x1:x3: 109.250 x2:x3: 17.750
+#We can see that the linear coefficients are not all positive or all negative, and the interaction coefficients are not all negative or all positive. Therefore, the type of surface that has been found is likely a saddle point.
+
+
+
+
+
+
+
+
+
+#c
+# Perform steepest ascent analysis
+steepest(model)
+
+# Based on the output I got, the operating conditions that maximize viscosity are approximately:
+#x1 = -0.314 x2 = 4.984 x3 = 0.238
+
+#Therefore, to maximize viscosity, I need to use 
+#x1 = -0.314 x2 = 4.984 x3 = 0.238
+
+
+```
+
+
+
+

@@ -1,0 +1,432 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Assignment1\_stat453},
+  pdfauthor={Koki Itagaki},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Assignment1\_stat453}
+\author{Koki Itagaki}
+\date{2024-01-17}
+
+\begin{document}
+\maketitle
+
+Question2 a) Ho: u1 \textgreater=l u2 Ha: u1 \textless{} u2
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Deflection temperatures for formulation 1 and 2}
+\NormalTok{f1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{206}\NormalTok{, }\DecValTok{193}\NormalTok{, }\DecValTok{192}\NormalTok{, }\DecValTok{188}\NormalTok{, }\DecValTok{207}\NormalTok{, }\DecValTok{210}\NormalTok{, }\DecValTok{205}\NormalTok{, }\DecValTok{185}\NormalTok{, }\DecValTok{194}\NormalTok{, }\DecValTok{187}\NormalTok{, }\DecValTok{189}\NormalTok{, }\DecValTok{178}\NormalTok{)}
+\NormalTok{f2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{177}\NormalTok{, }\DecValTok{176}\NormalTok{, }\DecValTok{198}\NormalTok{, }\DecValTok{197}\NormalTok{, }\DecValTok{185}\NormalTok{, }\DecValTok{188}\NormalTok{, }\DecValTok{206}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{189}\NormalTok{, }\DecValTok{201}\NormalTok{, }\DecValTok{197}\NormalTok{, }\DecValTok{203}\NormalTok{)}
+
+\CommentTok{\# Q{-}Q plot for formulation 1}
+\FunctionTok{qqnorm}\NormalTok{(f1)}
+\FunctionTok{qqline}\NormalTok{(f1, }\AttributeTok{col =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{assignment1_stat453_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Q{-}Q plot for formulation 2}
+\FunctionTok{qqnorm}\NormalTok{(f2)}
+\FunctionTok{qqline}\NormalTok{(f2, }\AttributeTok{col =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{assignment1_stat453_files/figure-latex/unnamed-chunk-1-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#To cheeck if the variance is the same or not }
+\CommentTok{\#I used a var.test}
+
+\CommentTok{\#Ho:σ1\^{}2=σ2\^{}2}
+\CommentTok{\#Ha:σ1\^{}2=/=σ2\^{}2}
+
+
+
+\FunctionTok{var.test}\NormalTok{(f1,f2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  F test to compare two variances
+## 
+## data:  f1 and f2
+## F = 1.046, num df = 11, denom df = 11, p-value = 0.9419
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.3011181 3.6334674
+## sample estimates:
+## ratio of variances 
+##           1.045994
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#From the variance test, the p{-}value is 0.9419 which is much larger than a = 0.05. So we fail to reject Ho. So the variance of 2 samples are }
+
+
+\CommentTok{\# Two{-}Sample T{-}Test}
+\NormalTok{t\_test\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(f2, f1, }\AttributeTok{alternative =} \StringTok{"greater"}\NormalTok{,}\AttributeTok{paired =} \ConstantTok{FALSE}\NormalTok{,}
+                        \AttributeTok{var.equal =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+
+\CommentTok{\# Display the T{-}Test Results}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Two{-}Sample T{-}Test:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Two-Sample T-Test:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(t\_test\_result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  f2 and f1
+## t = -0.34483, df = 22, p-value = 0.6333
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  -8.471217       Inf
+## sample estimates:
+## mean of x mean of y 
+##  193.0833  194.5000
+\end{verbatim}
+
+\#From the two-sample t test above, since the p-value = 0.6333 we fail
+to \#reject Ho. There is a insignificant evidence that the deflection
+temperature \#under load for formulation 2 exceeds that of formula 1.
+
+\#b)
+
+\#From the confidence interval which is (-oo, 8.4712), we can see that
+\#the confidence interval \#contains 0. It means we fail to reject H0
+which is the same result as part a. \#So the confidence interval support
+my answer above.
+
+3 (a) Ho: u \textless= 225 vs Ha: u \textgreater225
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#(b)}
+\NormalTok{hours }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{159}\NormalTok{, }\DecValTok{224}\NormalTok{, }\DecValTok{222}\NormalTok{,}\DecValTok{149}\NormalTok{, }\DecValTok{280}\NormalTok{, }\DecValTok{379}\NormalTok{, }\DecValTok{362}\NormalTok{, }\DecValTok{260}\NormalTok{, }\DecValTok{101}\NormalTok{, }\DecValTok{179}\NormalTok{, }\DecValTok{168}\NormalTok{, }\DecValTok{485}\NormalTok{, }\DecValTok{212}\NormalTok{, }\DecValTok{264}\NormalTok{,}
+           \DecValTok{250}\NormalTok{, }\DecValTok{170}\NormalTok{)}
+
+
+\CommentTok{\# I used t test since the sample size is quite small}
+\FunctionTok{t.test}\NormalTok{(hours, }\AttributeTok{alternative =} \StringTok{\textquotesingle{}greater\textquotesingle{}}\NormalTok{, }\AttributeTok{mu =} \DecValTok{225}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One Sample t-test
+## 
+## data:  hours
+## t = 0.66852, df = 15, p-value = 0.257
+## alternative hypothesis: true mean is greater than 225
+## 95 percent confidence interval:
+##  198.2321      Inf
+## sample estimates:
+## mean of x 
+##     241.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#From the graph above we know that since p{-}value = 0.257 which is bigger than }
+\CommentTok{\#0.05, we fail to reject Ho. There is an insignificant evidence that the hours }
+\CommentTok{\#to repait an electric instrument is greater than 225.}
+
+
+
+
+\CommentTok{\#c)}
+\FunctionTok{qqnorm}\NormalTok{(hours)}
+\FunctionTok{qqline}\NormalTok{(hours)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{assignment1_stat453_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#From the q{-}qplot above, it looks the distribution is a positive skewed and have}
+\CommentTok{\#havier tails.Also it has a outlier at the end of the graph. }
+\CommentTok{\#However, since almost of all points are near the stright line, the distribution }
+\CommentTok{\#is not normally distributed.}
+
+\CommentTok{\#d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#(b)Ho: ud = 0 Ha: ud =/= 0}
+\NormalTok{order1}\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{5.73}\NormalTok{,}\FloatTok{5.80}\NormalTok{,}\FloatTok{8.42}\NormalTok{,}\FloatTok{6.84}\NormalTok{,}\FloatTok{6.43}\NormalTok{,}\FloatTok{8.76}\NormalTok{,}\FloatTok{6.32}\NormalTok{,}\FloatTok{7.62}\NormalTok{,}\FloatTok{6.59}\NormalTok{,}\FloatTok{7.67}\NormalTok{)}
+\NormalTok{order2}\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{6.08}\NormalTok{,}\FloatTok{6.22}\NormalTok{,}\FloatTok{7.99}\NormalTok{,}\FloatTok{7.44}\NormalTok{,}\FloatTok{6.48}\NormalTok{,}\FloatTok{7.99}\NormalTok{,}\FloatTok{6.32}\NormalTok{,}\FloatTok{7.60}\NormalTok{,}\FloatTok{6.03}\NormalTok{,}\FloatTok{7.52}\NormalTok{)}
+\NormalTok{difference }\OtherTok{=}\NormalTok{ order1 }\SpecialCharTok{{-}}\NormalTok{ order2}
+\FunctionTok{qqnorm}\NormalTok{(difference)}
+\FunctionTok{qqline}\NormalTok{(difference)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{assignment1_stat453_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{t.test}\NormalTok{(order1,order2, }\AttributeTok{alternative =} \StringTok{"two.sided"}\NormalTok{, }\AttributeTok{paired =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Paired t-test
+## 
+## data:  order1 and order2
+## t = 0.36577, df = 9, p-value = 0.723
+## alternative hypothesis: true mean difference is not equal to 0
+## 95 percent confidence interval:
+##  -0.2644148  0.3664148
+## sample estimates:
+## mean difference 
+##           0.051
+\end{verbatim}
+
+\#From the paired t test above, we got that the p-value is 0.723 which
+is \#much greater than the a = 0.05, so we fail to reject Ho. \#There is
+an insignificant evidence that the mean score depend on \#birth order.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#5)(a)}
+\CommentTok{\#let u1  the mean of thickness at 95 degree and u2 the mean of thickness at 100 degree}
+\CommentTok{\# Ho:u1 = u2 Ha = u1 \textgreater{} u2}
+\NormalTok{lower\_temp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{11.176}\NormalTok{,}\FloatTok{7.089}\NormalTok{,}\FloatTok{8.097}\NormalTok{,}\FloatTok{11.739}\NormalTok{,}\FloatTok{11.291}\NormalTok{,}\FloatTok{10.759}\NormalTok{,}\FloatTok{6.467}\NormalTok{,}\FloatTok{8.315}\NormalTok{)}
+\NormalTok{higher\_temp }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{5.623}\NormalTok{,}\FloatTok{6.748}\NormalTok{,}\FloatTok{7.461}\NormalTok{,}\FloatTok{7.015}\NormalTok{,}\FloatTok{8.133}\NormalTok{,}\FloatTok{7.418}\NormalTok{,}\FloatTok{3.772}\NormalTok{,}\FloatTok{8.963}\NormalTok{)}
+
+\NormalTok{t\_test }\OtherTok{=} \FunctionTok{t.test}\NormalTok{(lower\_temp, higher\_temp, }\AttributeTok{alternative =} \StringTok{"greater"}\NormalTok{, }\AttributeTok{paired =} \ConstantTok{FALSE}\NormalTok{, var.equal}
+       \OtherTok{=} \ConstantTok{TRUE}\NormalTok{,}\AttributeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+
+\NormalTok{t\_test}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  lower_temp and higher_temp
+## t = 2.6549, df = 14, p-value = 0.009424
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  0.8330468       Inf
+## sample estimates:
+## mean of x mean of y 
+##  9.366625  6.891625
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#From the graph above we know that since p{-}value = 0.009424 which is much smaller}
+\CommentTok{\#than 0.05, we reject Ho. There is an significant evidence that higher baking }
+\CommentTok{\#temperature result in wafers with a lower mean photoresist thickness.}
+
+\CommentTok{\#(b)}
+\NormalTok{t\_test}\SpecialCharTok{$}\NormalTok{conf.int}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8330468       Inf
+## attr(,"conf.level")
+## [1] 0.95
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#I got the confidence (0.8330468,Inf)}
+\CommentTok{\#こきゃる}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#6}
+\NormalTok{type\_1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{65}\NormalTok{, }\DecValTok{82}\NormalTok{,}\DecValTok{81}\NormalTok{,}\DecValTok{67}\NormalTok{, }\DecValTok{57}\NormalTok{,}\DecValTok{59}\NormalTok{, }\DecValTok{66}\NormalTok{,}\DecValTok{75}\NormalTok{, }\DecValTok{82}\NormalTok{,}\DecValTok{70}\NormalTok{)}
+\NormalTok{type\_2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{64}\NormalTok{,}\DecValTok{56}\NormalTok{,}\DecValTok{71}\NormalTok{,}\DecValTok{69}\NormalTok{,}\DecValTok{83}\NormalTok{,}\DecValTok{74}\NormalTok{,}\DecValTok{59}\NormalTok{,}\DecValTok{65}\NormalTok{, }\DecValTok{79}\NormalTok{, }\DecValTok{82}\NormalTok{)}
+
+\CommentTok{\#(a)}
+\CommentTok{\#Ho:σ1\^{}2= σ2\^{}2}
+\CommentTok{\#Ha:σ1\^{}2=/= σ2\^{}2}
+\FunctionTok{var.test}\NormalTok{(type\_1, type\_2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  F test to compare two variances
+## 
+## data:  type_1 and type_2
+## F = 0.97822, num df = 9, denom df = 9, p-value = 0.9744
+## alternative hypothesis: true ratio of variances is not equal to 1
+## 95 percent confidence interval:
+##  0.2429752 3.9382952
+## sample estimates:
+## ratio of variances 
+##          0.9782168
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Since the p{-}value is 0.9229 which is much larger than a = 0.05,}
+\CommentTok{\#we fail to reject Ho. There is an insignificant evidence that }
+\CommentTok{\#the variance of two types are not the same}
+
+\CommentTok{\#b)}
+\CommentTok{\#Ho:u1 = u2}
+\CommentTok{\#Ha:u1 =/= u2}
+\FunctionTok{t.test}\NormalTok{(type\_1, type\_2, }\AttributeTok{var.equal =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Two Sample t-test
+## 
+## data:  type_1 and type_2
+## t = 0.048008, df = 18, p-value = 0.9622
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.552441  8.952441
+## sample estimates:
+## mean of x mean of y 
+##      70.4      70.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Since the p{-}value is 0.9622 which is much larger than a = 0.05,}
+\CommentTok{\#we fail to reject Ho. There is an insignificant evidence that }
+\CommentTok{\#the mean burning times are not equal.}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}

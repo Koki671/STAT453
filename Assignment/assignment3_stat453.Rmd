@@ -1,0 +1,335 @@
+---
+title: "assignment3_stat453"
+author: "Koki Itagaki"
+date: "2024-03-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Question1
+```{r}
+#a) Analyze the data and determine which factor is not significant.
+A <- c(-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1)
+B <- c(-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1)
+C <- c(-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1)
+D <- c(-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1)
+y <- c(2.45,3.36,2.16,2.29,2.49,3.39,2.32,2.44,1.84,2.24,1.69,1.87,2.29,2.92,2.04,2.03)
+data <- data.frame(A,B,C,D,y)
+
+
+model <- lm(y ~ A*B*C*D , data = data)
+#fullnormal(coef(model)[-1],alpha=.025)
+
+#Prepare an ANOVA table
+anova_table <- anova(model)
+
+# Display the ANOVA table
+print(anova_table)
+
+#From the fullmodel plot, it has a label of B,D.
+#So, the factors:A and C are not significant
+
+
+#b) Project the 24 design into two replicates of a 23 on the significant factors. The
+#new design table should include the runs, factors, responses, and labels
+res.aov2 <- aov(y~A*B*D,data = data)
+summary(res.aov2)
+#This is the new design table. I drop C because
+#It is not significant, so new model has the facrtors A,B and D.
+
+#c) In the projected design, what is the estimated effect of the account-opening fee in the response rate? 
+lm = lm(y~A*B*D,data = data)
+summary(lm)
+
+2*coef(lm)
+#-0.5175 is the estimated effect of the account-openig fee in the response rate
+
+#d) Using the projected design, is the account-opening fee significant?
+res.aov2 <- aov(y~A*B*D,data = data)
+summary(res.aov2)
+
+#According to the ANOVA table, it show the p-value of B is 0.00213 which is
+#less than a = 0.05. So it is significant.
+
+
+#e) Confound the projected design with blocks using the highest order interaction
+#as a confounding. Write down the runs for both blocks and estimate the block
+#effect. What is the block effect really estimating in this case?
+
+# Create a new factor "Block"
+data$Block <- ifelse(data$A * data$B * data$D > 0, "1", "2")
+
+# Fit the model with the block factor
+lm_block <- lm(y ~ A * B * D + Block, data = data)
+
+# Summary of the model
+summary(lm_block)
+
+#So i got -0.08750 as the block effect
+
+```
+
+###Question2
+```{r}
+# Import the data:
+data = read.csv("yield.csv")
+data
+# Fit a linear model
+model <- lm(Yield ~ A*B*C*D , data = data)
+# (a) Estimate the factor effects
+effects <- 2* coef(model)
+
+
+
+# Display the estimated factor effects
+print(effects)
+
+
+# Based on the R output the  estimated factor effects for the  2^4 factorial design is:
+
+#Intercept: 82.78125, A: -4.53125, B: -0.65625, C: -1.34375, D: 1.96875, A:B: 2.03125, A:C: 0.34375, B:C: -0.28125, A:D: -1.09375, B:D: -0.09375, C:D: 0.84375, A:B:C: -2.59375, A:B:D: 2.34375, A:C:D: -0.46875, B:C:D: -0.46875, A:B:C:D: 1.21875
+
+
+# (b) Prepare an ANOVA table
+anova_table <- anova(model)
+
+# Display the ANOVA table
+print(anova_table)
+
+
+
+#From the anova table, the p-value of A,C,D,A:B,A:D,A:B:C,A:B:D,A:B:C:D are less than 0.05 = a. So these factors are important factors in this experiment.
+
+
+#(c)ch
+model<- lm(Yield ~ A*B*C*D , data = data)
+model
+
+#Yield=β0+β1A+β3C+β4D+β5AB+β6AC+β7AD+β8BC+β9BD+β10CD+β11ABC+β12ABD+β13ACD+β14BCD+β15,ABCD+ϵ
+#So, Yield=82.78125-4.53125A-0.65625B-1.34375C+1.96875 D+2.03125AB-1.09375AD-2.59375ABC+2.34375ABD+1.21875ABCD+ϵ
+
+
+
+#(d)
+
+#Final model - remove non-significant terms
+res.aov<-aov(Yield~A*B*C*D-A:C-B:C-B:D-C:D-A:C:D-B:C:D,data=data)
+summary(res.aov)
+#Residual Analysis
+#Normality
+yield_residuals=res.aov$residuals
+qqnorm(yield_residuals, ylim=c(min(yield_residuals),max(yield_residuals)), main = "Normal Q-Q Plot for Residuals",
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles- Modified",
+       plot.it = TRUE, datax = FALSE)
+
+qqline(yield_residuals, datax = FALSE, distribution = qnorm)
+#Test normality using Shapiro Wilks
+shapiro.test(yield_residuals)
+
+
+#Check Variance
+Fitted_values=res.aov$fitted.values
+plot(Fitted_values,yield_residuals,ylab="Residuals",xlab="Fitted Values")
+abline(h=0)
+
+#From the q-q plot for residuals, the almost of all data are near the streight line. Also, by the Shapiro-Wilk test, Since the p-value is greater than 0.05,we fail to reject the null hypothesis that the data is normally distributed. 
+#it means the distribution is normally distributed.
+
+
+#Moreover,The	residual	vs	fitted	value	plot　shows
+# that the pattern of scatter is the almost same.
+#so the variance is adequate
+#So this is an adequate model to test.
+
+```
+###Question3
+```{r}
+
+#a) Are any of the effects significant? 
+# Define the effect estimates
+effects <- c(ABCD = -2.5251, AD = -1.6564, BCD = 4.4054, AC = 1.1109,
+             ACD = -0.4932, AB = -10.5229, ABD = -5.0842, D = -6.0275,
+             ABC = -5.7696, C = -8.2045, CD = 4.6707, B = -6.5304,
+             BD = -4.6620, A = -0.7914, BC = -0.7982)
+
+#According to the fullnormal graph, there is no labels.
+#It means that thereare no significant effects.
+
+library(daewr)
+fullnormal(effects,alpha=.025)
+
+#b) What happens if you the effect of the interaction AB was -50.5229 instead of
+#-10.5229?
+effects2 <- c(ABCD = -2.5251, AD = -1.6564, BCD = 4.4054, AC = 1.1109,
+             ACD = -0.4932, AB = -50.5229, ABD = -5.0842, D = -6.0275,
+             ABC = -5.7696, C = -8.2045, CD = 4.6707, B = -6.5304,
+             BD = -4.6620, A = -0.7914, BC = -0.7982)
+
+fullnormal(effects2,alpha=.025)
+
+
+#According to the fullnormal graph, there is one label which is AB.
+#So, only AB is significant effect.
+```
+
+###Question4
+```{r}
+
+
+#(a) Analyze the data from this experiment. Identify the significant factors
+#and interactions and removing the non-significant terms, when
+#appropriate.
+A <- c(-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1)
+B <- c(-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1)
+C <- c(-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1)
+D <- c(-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1)
+E <- c(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+Obs <- c(8.11,5.56,5.77,5.82,9.17,7.8,3.23,5.69,8.82,14.23,9.2,8.94,8.68,11.49,6.25,9.12,7.93,5,7.47,12,9.86,3.65,6.4,11.61,12.43,17.55,8.87,25.38,13.06,18.85,11.78,26.05)
+Data <- data.frame(A,B,C,D,E,Obs)
+Data
+
+Model <- lm(Obs~A*B*C*D*E,data = Data)
+coef(Model)
+
+fullnormal(coef(Model)[-1],alpha=.025)
+
+
+
+
+summary(Model)
+
+Model2 <- aov(Obs~A+B+D+E+A*B+A*D+A*E+B*E+D*E+A*B*E+A*D*E,data = Data)
+summary(Model2)
+
+#From the full normal plot, it shows that  factors A,D,E,A:D,D:E,B:E,A:B,A:E,A:B:E,A:D:E are significant. 
+#Also,ANOVA analysis shows the factors A,D,E,AB,AD,AE,BE,DE,ABE,ADE as significant.
+
+#(b)One of the factors from this experiment does not seem to be important.
+#If you drop this factor, what type of design remains? Analyze the data
+#using the full factorial model for only the four active factors, including
+#model adequacy checking.
+
+A <- c(-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1)
+B <- c(-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1)
+D <- c(-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1)
+E <- c(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+Obs <- c(8.11,5.56,5.77,5.82,9.17,7.8,3.23,5.69,8.82,14.23,9.2,8.94,8.68,11.49,6.25,9.12,7.93,5,7.47,12,9.86,3.65,6.4,11.61,12.43,17.55,8.87,25.38,13.06,18.85,11.78,26.05)
+Data <- data.frame(A,B,D,E,Obs)
+
+Model2 <- lm(Obs~A*B*D*E,data = Data)
+coef(Model)
+
+
+
+fullnormal(coef(Model2)[-1],alpha=.025)
+
+
+summary(Model2)
+
+
+
+Model3 <- aov(Obs~A+B+D+E+A*B+A*D+A*E+B*E+D*E+A*B*E+A*D*E,data = Data)
+summary(Model3)
+
+
+#From (a), the factor c seems to be not important, also there are no interactions which are significant with c, So, I dropped the 
+#factor c. This is  2^4 factorial design.
+#Even though I drop the factor c, the remaining 4 factors still 
+#have the same results as the (a).
+
+#For the model checking,
+
+
+
+
+#model checking
+#Final model - remove non-significant terms
+res.aov<-aov(Model3)
+summary(res.aov)
+#Residual Analysis
+#Normality
+engineer_residuals=res.aov$residuals
+qqnorm(engineer_residuals, ylim=c(min(engineer_residuals),max(engineer_residuals)), main = "Normal Q-Q Plot for Residuals",
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles- Modified",
+       plot.it = TRUE, datax = FALSE)
+
+qqline(engineer_residuals, datax = FALSE, distribution = qnorm)
+#Test normality using Shapiro Wilks
+shapiro.test(engineer_residuals)
+
+
+#Check Variance
+Fitted_values=res.aov$fitted.values
+plot(Fitted_values,engineer_residuals,ylab="Residuals",xlab="Fitted Values")
+abline(h=0)
+
+#From the q-q plot for residuals, the almost of all data are near the streight line. Also, by the Shapiro-Wilk test, Since the p-value(0.6491) is greater than 0.05,we fail to reject the null hypothesis that the data is normally distributed. 
+#it means the distribution is normally distributed.
+
+
+#Moreover,The	residual	vs	fitted	value	plot　shows
+# that the pattern of scatter is the almost same.
+#so the variance is adequate
+#So this is an adequate model to test.
+
+#(c)Find settings of the active factors that maximize the predicted response.
+
+#Based on the transformed data above we got
+#Yi,j,k,l = 10.1803125 + 1.6159375αi+0.0434375βj + 2.9884375γk
+# + 2.1878125δl + ϵi,j,k,l
+
+```
+###Question5
+```{r}
+#Consider the full 25 factorial design Question 4 above. Suppose that
+#this experiment had been run in two blocks with ABCDE confounded with the
+#blocks. Set up the blocked design and perform the analysis. Compare your results
+#with the results obtained for the completely randomized design in Question 4.
+A <- c(-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1)
+B <- c(-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1)
+C <- c(-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1)
+D <- c(-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1)
+E <- c(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+Obs <- c(8.11,5.56,5.77,5.82,9.17,7.8,3.23,5.69,8.82,14.23,9.2,8.94,8.68,11.49,6.25,9.12,7.93,5,7.47,12,9.86,3.65,6.4,11.61,12.43,17.55,8.87,25.38,13.06,18.85,11.78,26.05)
+# Define the block variable
+#positive is 2 negative 1 is 1
+block <- c(1,2,2,1,2,1,1,2,2,1,1,2,1,2,2,1,2,1,1,2,1,2,2,1,1,2,2,1,2,1,1,2)
+
+Data <- data.frame(A,B,C,D,E,Obs,block)
+
+
+# Fit the model with the block effect and confounding ABCDE with blocks
+Model_Mod <- lm(Obs ~ block + A*B*C*D*E, data = Data)
+
+# Display the ANOVA table for the modified design
+anova_table_Mod <- anova(Model_Mod)
+print(anova_table_Mod)
+
+
+
+#This is from question4
+A <- c(-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1)
+B <- c(-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1,-1,-1,1,1)
+C <- c(-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1,-1,-1,-1,-1,1,1,1,1)
+D <- c(-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1)
+E <- c(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+Obs <- c(8.11,5.56,5.77,5.82,9.17,7.8,3.23,5.69,8.82,14.23,9.2,8.94,8.68,11.49,6.25,9.12,7.93,5,7.47,12,9.86,3.65,6.4,11.61,12.43,17.55,8.87,25.38,13.06,18.85,11.78,26.05)
+Data <- data.frame(A,B,C,D,E,Obs)
+Data
+
+Model <- lm(Obs~A*B*C*D*E,data = Data)
+aov.model = aov(Model)
+summary(aov.model)
+
+
+#Compared to the design from question 4, the value of question 5 has less 
+#values. 
+
+```
+
+
+
+
